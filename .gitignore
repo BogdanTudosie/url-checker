@@ -1,0 +1,9 @@
+.vscode
+build
+Makefile
+CMakeCache.txt
+url_checker
+urls.txt
+cmake_install.cmake
+output/
+CMakeFiles
