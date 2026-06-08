@@ -10,6 +10,7 @@
 #include "model/check-result.h"
 #include "service/url-checker-service.h"
 #include "service/json-logger-service.h"
+#include "model/resultstore.h"
 
 std::vector<std::string> readUrls(const std::string& path) {
     std::ifstream file(path);
@@ -58,6 +59,17 @@ int main() {
         if (r.getErrorMessage().has_value()) {
             std::cout << "Error: " << r.getErrorMessage().value() << "\n";
         }
+    }
+
+    ResultStore store(results);
+    std::optional<CheckResult> urlResult = store.findByUrl("http://www.google.com");
+    std::vector<CheckResult> highLatencyResults = store.findByLatency(500);
+
+    std::cout << "Result by URL: " << (urlResult.has_value() ? urlResult->getUrl() : "Not found") << "\n";
+    std::cout << "Results with latency >= 500ms: " << highLatencyResults.size() << "\n";
+
+    for (const auto& result : highLatencyResults) {
+        std::cout << "URL: " << result.getUrl() << ", Latency: " << result.getLatency() << "ms\n";
     }
 
     loggerService.log(results);
