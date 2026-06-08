@@ -10,6 +10,7 @@ class JsonLoggerService {
 public:
     JsonLoggerService(const std::string &path) : path(path) {}
     void log(const std::vector<CheckResult>& results);
+    void log(const std::unordered_map<std::string, CheckResult>& results);
     nlohmann::json toJson(const CheckResult& result);
     const std::string& getPath() const;
 private:
