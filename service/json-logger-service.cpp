@@ -28,4 +28,14 @@ void JsonLoggerService::log(const std::vector<CheckResult>& results) {
     file << j.dump(4);
 }
 
+void JsonLoggerService::log(const std::unordered_map<std::string, CheckResult>& results) {
+    nlohmann::json j = nlohmann::json::array();
+    for (const auto& [key, result]: results) {
+        j.push_back(toJson(result));
+    }
+
+    std::ofstream file(path);
+    file << j.dump(4);
+}
+
 const std::string& JsonLoggerService::getPath() const { return path; }
