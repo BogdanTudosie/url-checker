@@ -14,6 +14,7 @@ add_executable(url_checker
                service/url-checker-service.cpp
                service/json-logger-service.cpp
                model/check-result.cpp
+               model/resultstore.cpp
                )
 
 target_include_directories(url_checker PRIVATE ${CMAKE_SOURCE_DIR})
